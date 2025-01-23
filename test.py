@@ -20,13 +20,13 @@ client = Groq(api_key=api_key)
 def get_growing_industries():
     # This is a sample of dynamic data (could be fetched from an API or database)
     industries = [
-        {"industry": "Technology", "growth_estimate": "5-10% annually", "icon": "💻"},
-        {"industry": "Healthcare", "growth_estimate": "7-10% annually", "icon": "🏥"},
-        {"industry": "Renewable Energy", "growth_estimate": "8-12% annually", "icon": "🌱"},
-        {"industry": "E-commerce", "growth_estimate": "6-9% annually", "icon": "🛒"},
-        {"industry": "Finance & Fintech", "growth_estimate": "6-8% annually", "icon": "💰"},
-        {"industry": "Education Technology (EdTech)", "growth_estimate": "15% annually", "icon": "🎓"},
-        {"industry": "Logistics & Supply Chain", "growth_estimate": "4-8% annually", "icon": "🚚"},
+        {"industry": "Technology", "growth_estimate": "5-10% annually"},
+        {"industry": "Healthcare", "growth_estimate": "7-10% annually"},
+        {"industry": "Renewable Energy", "growth_estimate": "8-12% annually"},
+        {"industry": "E-commerce", "growth_estimate": "6-9% annually"},
+        {"industry": "Finance & Fintech", "growth_estimate": "6-8% annually"},
+        {"industry": "Education Technology (EdTech)", "growth_estimate": "15% annually"},
+        {"industry": "Logistics & Supply Chain", "growth_estimate": "4-8% annually"},
     ]
     return industries
 
@@ -55,11 +55,11 @@ def chatbot_interface():
     """
     st.set_page_config(page_title="Career Advisor ChatBot", layout="wide")
 
-    # Set title with color and center alignment
-    st.markdown("<h1 style='color: #D8BFD8; text-align: center;'>Career Path Adviser ChatBot</h1>", unsafe_allow_html=True)
+    # Set title with color
+    st.markdown("<h1 style='color: #4CAF50;'>Career Path Adviser ChatBot</h1>", unsafe_allow_html=True)
 
-    # Set description with dynamic content (growing industries) and center alignment
-    industries_description = "<p style='color: #3f51b5; font-size: 18px; text-align: center;'>Welcome to the Career Adviser ChatBot! Ask me anything about career paths, job recommendations, or industry trends. Type your queries below🫡.</p>"
+    # Set description with dynamic content (growing industries)
+    industries_description = "<p style='color: #3f51b5; font-size: 18px;'>Welcome to the Career Adviser ChatBot! Ask me anything about career paths, job recommendations, or industry trends. Type your queries below🫡.</p>"
 
     # Add growing industries dynamically in cards
     st.markdown(industries_description, unsafe_allow_html=True)
@@ -69,15 +69,15 @@ def chatbot_interface():
         """
         <style>
         .industry-card {
-            border: 1px solid #B57EDC;
+            border: 1px solid #ddd;
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 15px;
-            height: 200px; /* Fixed height for all cards */
+            height: 250px; /* Fixed height for all cards */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background-color: #f9fafb;
+            background-color: #f9f9f9;
         }
         .industry-card h3 {
             margin-bottom: 10px;
@@ -85,10 +85,6 @@ def chatbot_interface():
         }
         .industry-card p {
             font-size: 14px;
-        }
-        .industry-card .icon {
-            font-size: 30px; /* Icon size */
-            margin-bottom: 10px;
         }
         </style>
         """,
@@ -102,7 +98,6 @@ def chatbot_interface():
             st.markdown(
                 f"""
                 <div class='industry-card'>
-                    <div class='icon'>{industry['icon']}</div>
                     <h3>{industry['industry']}</h3>
                     <p><strong>Growth Estimate:</strong> {industry['growth_estimate']}</p>
                 </div>
@@ -115,7 +110,6 @@ def chatbot_interface():
             st.markdown(
                 f"""
                 <div class='industry-card'>
-                    <div class='icon'>{industry['icon']}</div>
                     <h3>{industry['industry']}</h3>
                     <p><strong>Growth Estimate:</strong> {industry['growth_estimate']}</p>
                 </div>
@@ -128,7 +122,6 @@ def chatbot_interface():
             st.markdown(
                 f"""
                 <div class='industry-card'>
-                    <div class='icon'>{industry['icon']}</div>
                     <h3>{industry['industry']}</h3>
                     <p><strong>Growth Estimate:</strong> {industry['growth_estimate']}</p>
                 </div>
@@ -150,107 +143,51 @@ def chatbot_interface():
     with st.sidebar:
         # Dynamic sidebar content
         if st.session_state.sidebar_visible:
-            # Apply custom styles for sidebar and nav items
-            st.markdown(
-                """
-                <style>
-                /* Change the sidebar background color */
-                [data-testid="stSidebar"] {
-                    background-color: #f9fafb; /* Light purple */
-                    padding-top: 0;  /* Remove any padding at the top */
-                }
-
-                /* Make the nav items align to the top left */
-                .nav-item {
-                    font-size: 16px;
-                    margin: 5px 0;  /* Adjusted margins to ensure spacing */
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;  /* Align items to the left */
-                }
-
-                /* Style for the link */
-                .nav-item a {
-                    text-decoration: none;
-                    color: black;
-                    display: flex;
-                    align-items: center;
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                    width: 100%;  /* Ensure the item takes the full width of the sidebar */
-                }
-
-                /* Hover effect */
-                .nav-item a:hover {
-                    background-color: #9C29B0;
-                }
-
-                /* Icon styling */
-                .nav-item i {
-                    margin-right: 10px;  /* Space between icon and text */
-                    font-size: 18px;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
-        
-        # Navigation header
-        #st.header("llama-3.3-70b-versatile")
-
-        # Add Font Awesome CDN for icons and custom CSS for the spinning effect and positioning
-        st.markdown(
+            with st.sidebar:
+                # Apply custom styles for icons and hover effect
+                st.markdown(
             """
             <style>
-            /* Add Font Awesome CDN */
-            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
-
-            /* Define the spin animation */
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+            /* Change the sidebar background color */
+            [data-testid="stSidebar"] {
+                background-color: #6C63FF; /* Light purple */
             }
-
-            /* Make the Exit link appear at the top left of the sidebar */
             .nav-item {
+                font-size: 16px;
+                margin: 10px 0;
                 display: flex;
                 align-items: center;
-                margin-bottom: 20px; /* Optional: space between items */
-                padding-left: 10px;
             }
-
-            /* Exit link style */
             .nav-item a {
                 text-decoration: none;
-                color: #B57EDC;
+                color: black;
                 display: flex;
                 align-items: center;
-                font-size: 18px;
+                padding: 5px 10px;
+                border-radius: 5px;
             }
-
-            /* Icon style */
+            .nav-item a:hover {
+                background-color: #9C29B0;
+            }
             .nav-item i {
                 margin-right: 10px;
-                font-size: 20px; /* Adjust the size of the icon */
-            }
-
-            /* Apply spin effect on hover */
-            .nav-item a:hover i {
-                animation: spin 1s linear infinite;
+                font-size: 18px;
             }
             </style>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
 
-        # Navigation item with the exit icon that spins on hover
-        st.sidebar.markdown(
+        # Navigation header
+        st.header("llama-3.3-70b-versatile")
+
+        # Navigation items with icons and links
+        st.markdown(
             """
             <div class="nav-item">
-                <a href="https://career-chat-ai.vercel.app" target="_self">
-                    <i class="fas fa-sign-out-alt"></i> Exit
-                </a>
+               <i>🏠</i> <a href="/app" target="_self">Home</a>
             </div>
+            
             """,
             unsafe_allow_html=True,
         )
